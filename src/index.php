@@ -7,7 +7,7 @@ require_once('../vendor/autoload.php');
 //Tableau qui va contenir les données à inserer
 $pis = [];
 
-//On crée une instance de MongoDB (Une connexion en gros) et on selectionne la BDD 'tdmongo'
+//On crée une instance de MongoDB (Une connexion) et on selectionne la BDD 'tdmongo'
 $db = (new MongoDB\Client('mongodb://mongodb'))->selectDatabase('tdmongo');
 
 //Ici on récupère les données de l'API des parkings, un peu comme un fetch en JS, puis un les transformes en format json avec la fonction json_decode()
