@@ -9,7 +9,7 @@ class AccueilController
   
   public function accueil(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
   {
-    $response->getBody()->write(file_get_contents('./index.html'));
+    $response->getBody()->write(file_get_contents('../src/html/index.html'));
     return $response;
   }
 
