@@ -1,0 +1,191 @@
+[
+    {
+        "name": "Mouzimpré",
+        "ad": "Rue des Prés",
+        "desc": "",
+        "x": 6.225296815176762,
+        "y": 48.702018030790775,
+        "places": 242,
+        "capacities": 240
+    },
+    {
+        "name": "Institut de Cancerologie",
+        "ad": "6 Avenue de Bourgogne",
+        "desc": "",
+        "x": 6.144662673632979,
+        "y": 48.64818636323311,
+        "places": null,
+        "capacities": null
+    },
+    {
+        "name": "Trois Maisons",
+        "ad": "Rue Charles Keller",
+        "desc": "",
+        "x": 6.175550928103099,
+        "y": 48.7038484821876,
+        "places": 24,
+        "capacities": null
+    },
+    {
+        "name": "République",
+        "ad": "Boulevard Joffre",
+        "desc": "",
+        "x": 6.179456422512133,
+        "y": 48.68663079063309,
+        "places": 324,
+        "capacities": 450
+    },
+    {
+        "name": "Charles III",
+        "ad": "Place Henry Mengin",
+        "desc": "",
+        "x": 6.181679046362918,
+        "y": 48.689344305393064,
+        "places": 104,
+        "capacities": 343
+    },
+    {
+        "name": "Dom Calmet",
+        "ad": "Rue Dom Calmet",
+        "desc": "",
+        "x": 6.181028158837266,
+        "y": 48.69158764776406,
+        "places": 43,
+        "capacities": 205
+    },
+    {
+        "name": "Gare Thiers",
+        "ad": "Rue Mazagran",
+        "desc": "",
+        "x": 6.175736179907492,
+        "y": 48.69008821416744,
+        "places": 194,
+        "capacities": 648
+    },
+    {
+        "name": "Joffre St-Thiebaut",
+        "ad": "Rue du Grand Rabbin Haguenauer",
+        "desc": "",
+        "x": 6.179610008858117,
+        "y": 48.68778733562811,
+        "places": 230,
+        "capacities": 466
+    },
+    {
+        "name": "Kennedy",
+        "ad": "Rue Jacques Bellange",
+        "desc": "",
+        "x": 6.173533691247536,
+        "y": 48.68585656828219,
+        "places": 256,
+        "capacities": 295
+    },
+    {
+        "name": "Les Deux Rives",
+        "ad": "Rue Emilie du Chatelet",
+        "desc": "",
+        "x": 6.195891937686726,
+        "y": 48.695298083887955,
+        "places": 219,
+        "capacities": 519
+    },
+    {
+        "name": "Manufacture",
+        "ad": "74 Quai Claude le Lorrain",
+        "desc": "",
+        "x": 6.170707627127843,
+        "y": 48.69698832700811,
+        "places": null,
+        "capacities": 241
+    },
+    {
+        "name": "Place des Vosges",
+        "ad": "23 Places des Vosges",
+        "desc": "",
+        "x": 6.188226790223143,
+        "y": 48.684685237596106,
+        "places": 80,
+        "capacities": 197
+    },
+    {
+        "name": "Place Stanislas",
+        "ad": "6 Rue Claude Charles",
+        "desc": "",
+        "x": 6.184944336425358,
+        "y": 48.69221686254311,
+        "places": 172,
+        "capacities": 383
+    },
+    {
+        "name": "Saint-Dizier",
+        "ad": "Rue des Soeurs Macarons",
+        "desc": "",
+        "x": 6.184439359956837,
+        "y": 48.68924334822768,
+        "places": 121,
+        "capacities": 209
+    },
+    {
+        "name": "Saint-Leon",
+        "ad": "Rue Saint-Leon",
+        "desc": "",
+        "x": 6.172779846917692,
+        "y": 48.68920975126067,
+        "places": 117,
+        "capacities": 224
+    },
+    {
+        "name": "Saint-Nicolas",
+        "ad": "32 Rue des Fabriques",
+        "desc": "",
+        "x": 6.189404780236048,
+        "y": 48.68731498903684,
+        "places": 350,
+        "capacities": 600
+    },
+    {
+        "name": "Saint-Sebastien",
+        "ad": "Centre Commercial Saint-Sebastien",
+        "desc": "",
+        "x": 6.181736957143453,
+        "y": 48.68729748700634,
+        "places": 1098,
+        "capacities": 1200
+    },
+    {
+        "name": "Vaudemont",
+        "ad": "Terrasse de la Pépinière",
+        "desc": "",
+        "x": 6.184181138851583,
+        "y": 48.69459747282067,
+        "places": 68,
+        "capacities": 195
+    },
+    {
+        "name": "Ville Vielle Carnot",
+        "ad": "Place Carnot",
+        "desc": "",
+        "x": 6.178138107468003,
+        "y": 48.69322213174933,
+        "places": 156,
+        "capacities": 371
+    },
+    {
+        "name": "Ville Vielle Leopold",
+        "ad": "Cours Léopold",
+        "desc": "",
+        "x": 6.1762485453637765,
+        "y": 48.69538478548938,
+        "places": 191,
+        "capacities": 400
+    },
+    {
+        "name": "Brabois",
+        "ad": "Avenue de Bourgogne",
+        "desc": "",
+        "x": 6.146292946040967,
+        "y": 48.64907009599818,
+        "places": null,
+        "capacities": 530
+    }
+]
