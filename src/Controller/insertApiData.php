@@ -57,5 +57,6 @@ if (!isCollectionExist('pis', $db)) {
   }
   
 } else {
+  $db=$db->dropCollection('pis');
   return false;
 }
