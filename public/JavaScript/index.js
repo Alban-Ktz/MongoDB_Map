@@ -2,7 +2,7 @@ let url = "https://geoservices.grand-nancy.org/arcgis/rest/services/public/VOIRI
 let map = L.map('map').setView([48.691435, 6.177898], 13);
 let coordonne = []
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
+    maxZoom: 19, minZoom: 3,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
