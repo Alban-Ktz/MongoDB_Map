@@ -9,8 +9,8 @@ class AccueilController
   
   public function accueil(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
   {
-    //$response->getBody()->write(file_get_contents('../src/html/index.html'));
-    require('../src/Controller/MongoDbInit.php');
+    $response->getBody()->write(file_get_contents('../src/html/index.html'));
+    require('../src/Controller/insertApiData.php');
     return $response;
   }
 

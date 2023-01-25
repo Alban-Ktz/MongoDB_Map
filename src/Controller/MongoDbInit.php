@@ -21,6 +21,5 @@
 
     }
     $jsonapi=json_encode($api,JSON_UNESCAPED_UNICODE);
-    file_put_contents("myfile.json",$jsonapi);
-    echo($jsonapi);
+    file_put_contents("../src/JSON/myfile.json",$jsonapi);
     ?>

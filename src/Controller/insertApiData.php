@@ -21,6 +21,7 @@ $db = (new MongoDB\Client('mongodb://mongodb'))->selectDatabase('tdmongo');
 
 $exist=isCollectionExist('pis',$db);
 if($exist==true){
+
   return false;
 }else{
 //Ici on récupère les données de l'API des parkings, un peu comme un fetch en JS, puis un les transformes en format json avec la fonction json_decode()
@@ -31,6 +32,7 @@ $db->createCollection('pis');
 
 //On selectionne la collection pis créée juste au dessus
 $db = $db->selectCollection('pis');
+
 
 
 //Pour chaque parking 
