@@ -10,6 +10,8 @@
         "ext-mongodb": "*",
         "ext-json": "*",
         "slim/slim": "4.*",
-        "slim/psr7": "^1.5"
+        "slim/psr7": "^1.5",
+        "symfony/cache": "^6.1",
+        "uma/dic": "^3.0"
     }
 }
