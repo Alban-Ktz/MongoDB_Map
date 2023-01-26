@@ -11,7 +11,7 @@ class ApiController
   {
 
     require('../src/Controller/MongoDbInit.php');
-    $response->getBody()->write(file_get_contents('../src/JSON/geo.json'));
+    $response->getBody()->write(file_get_contents('../src/JSON/data.geojson'));
     return $response;
   }
 

@@ -21,5 +21,5 @@
 
     }
     $jsonapi=json_encode($api,JSON_UNESCAPED_UNICODE);
-    file_put_contents("../src/JSON/geo.json",$jsonapi);
+    file_put_contents("../src/JSON/data.geojson",$jsonapi);
     ?>

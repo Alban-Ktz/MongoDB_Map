@@ -23,26 +23,28 @@ class InsertApiDataController {
   {
     //On crée une instance de MongoDB (Une connexion) et on selectionne la BDD 'tdmongo'
     $db = (new MongoDBClient('mongodb://mongodb'))->selectDatabase('tdmongo');
-    
-    if (!$this->isCollectionExist('pis', $db)) {
-      //Dans la BDD on crée une collection nommée 'pis' (Collection = table en MySQL)
-      $db->createCollection('pis');
-    
-      //On selectionne la collection pis créée juste au dessus
-      $db = $db->selectCollection('pis');
-    
-      //Tableau qui va contenir les données à inserer
-      $pis = $this->apiParseService->ApiToGeoJson();
 
-      //Si  le tableau n'est pas vide on insert TOUTES les données dans la BDD avec insertMany. Pour inserer seulement un objet on utilise la méthode insertOne
-      if (count($pis) > 0) {
-        $db->insertMany($pis);
-      }
-      
-    } else {
-      $db=$db->dropCollection('pis');
-      
-      return false;
+    if ($this->isCollectionExist('pis', $db)) {
+      $db->dropCollection('pis');
+    }
+
+    $this->createDatabase($db);
+  }
+  
+  public function createDatabase(\MongoDB\Database $db)
+  {
+    //Dans la BDD on crée une collection nommée 'pis' (Collection = table en MySQL)
+    $db->createCollection('pis');
+  
+    //On selectionne la collection pis créée juste au dessus
+    $db = $db->selectCollection('pis');
+  
+    //Tableau qui va contenir les données à inserer
+    $pis = $this->apiParseService->ApiToGeoJson();
+
+    //Si  le tableau n'est pas vide on insert TOUTES les données dans la BDD avec insertMany. Pour inserer seulement un objet on utilise la méthode insertOne
+    if (count($pis) > 0) {
+      $db->insertMany($pis);
     }
   }
 }
