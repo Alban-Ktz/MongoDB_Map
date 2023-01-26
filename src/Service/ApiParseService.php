@@ -4,6 +4,7 @@ namespace App\Service;
 class ApiParseService{
     private $apiUrlParking = "https://geoservices.grand-nancy.org/arcgis/rest/services/public/VOIRIE_Parking/MapServer/0/query?where=1%3D1&text=&objectIds=&time=&geometry=&geometryType=esriGeometryEnvelope&inSR=&spatialRel=esriSpatialRelIntersects&relationParam=&outFields=nom%2Cadresse%2Cplaces%2Ccapacite&returnGeometry=true&returnTrueCurves=false&maxAllowableOffset=&geometryPrecision=&outSR=4326&returnIdsOnly=false&returnCountOnly=false&orderByFields=&groupByFieldsForStatistics=&outStatistics=&returnZ=false&returnM=false&gdbVersion=&returnDistinctValues=false&resultOffset=&resultRecordCount=&queryByDistance=&returnExtentsOnly=false&datumTransformation=&parameterValues=&rangeValues=&f=pjson";
     private $apiUrlBike = "https://transport.data.gouv.fr/gbfs/nancy/station_information.json";
+    private $apiUrlBikeStatus = "https://transport.data.gouv.fr/gbfs/nancy/station_status.json";
     private $apiUrlBus = "../src/ApiFile/55795.20221220.180715.388446.zip.geojson";
 
     public function GetData(String $apiName)
@@ -36,7 +37,18 @@ class ApiParseService{
 
         //GeoJSON bike points
         $data = $this->GetData($this->apiUrlBike);
+        $dataBikeStatus = $this->GetData($this->apiUrlBikeStatus);
         foreach ($data->data->stations as $station) { 
+            $stationId = $station->station_id;
+
+            //get bikes and docks available corresponding with stationId
+            foreach ($dataBikeStatus->data->stations as $bikeStatus) {
+                if($bikeStatus->station_id == $stationId) {
+                    $bikesAvailable = $bikeStatus->num_bikes_available;
+                    $docksAvailable = $bikeStatus->num_docks_available;
+                }
+            }
+
             $geoJsonDatas[] = [
                 'properties' => 'bike',
                 'name' => $station->name,
@@ -54,14 +66,29 @@ class ApiParseService{
                     ]
                 ],
                 'capacity' => $station->capacity,
-                'station_id' => $station->station_id
+                'station_id' => $stationId,
+                'num_bikes_available' => $bikesAvailable,
+                'num_docks_available' => $docksAvailable,
             ];
         }
 
-        // foreach($data->features->geometry->coordinates[0] as $coordinates)
-        // {
-        //     echo $coordinates[0].','.$coordinates[1].'<br>';
-        // }
+        //GeoJSON bus points
+        $data = $this->GetData($this->apiUrlBus);
+        foreach($data->features as $feature)
+        {
+            $geoJsonDatas[] = [
+                'properties' => [
+                    'bus',
+                    $feature->properties
+                ],
+                'category' => [
+                    'name' => 'bus',
+                    'icon' => 'fa-square-bus',
+                    'color' => 'purple'
+                ],
+                'geometry' => $feature->geometry,
+            ];
+        }
         
         // var_dump($data);
 

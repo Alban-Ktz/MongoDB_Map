@@ -2,8 +2,6 @@
 namespace App\Controller;
 
 use App\Service\ApiParseService;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use MongoDB\Client as MongoDBClient;
 
 class InsertApiDataController {
@@ -23,9 +21,6 @@ class InsertApiDataController {
   
   public function loadDatabase()
   {
-    //Tableau qui va contenir les données à inserer
-    $pis[] = $this->apiParseService->ApiToGeoJson();
-    
     //On crée une instance de MongoDB (Une connexion) et on selectionne la BDD 'tdmongo'
     $db = (new MongoDBClient('mongodb://mongodb'))->selectDatabase('tdmongo');
     
@@ -36,14 +31,16 @@ class InsertApiDataController {
       //On selectionne la collection pis créée juste au dessus
       $db = $db->selectCollection('pis');
     
-      //On récupère les données des api
-    
+      //Tableau qui va contenir les données à inserer
+      $pis = $this->apiParseService->ApiToGeoJson();
+
       //Si  le tableau n'est pas vide on insert TOUTES les données dans la BDD avec insertMany. Pour inserer seulement un objet on utilise la méthode insertOne
       if (count($pis) > 0) {
-        $res = $db->insertMany($pis);
+        $db->insertMany($pis);
       }
       
     } else {
+      $db=$db->dropCollection('pis');
       return false;
     }
   }
