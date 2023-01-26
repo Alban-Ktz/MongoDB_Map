@@ -41,6 +41,7 @@ class InsertApiDataController {
       
     } else {
       $db=$db->dropCollection('pis');
+      
       return false;
     }
   }

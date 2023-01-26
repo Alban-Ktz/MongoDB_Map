@@ -59,8 +59,8 @@ class ApiParseService{
                 ],
                 'geometry' => [
                     "type" => 'point',
-                    "x" =>  $station->lat,
-                    "y"=>  $station->lon,
+                    "x" =>  $station->lon,
+                    "y"=>  $station->lat,
                     
                 ],
                 'capacity' => $station->capacity,

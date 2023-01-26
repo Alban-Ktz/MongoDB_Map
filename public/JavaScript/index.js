@@ -5,7 +5,14 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, minZoom: 3,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-
+let greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
 
 
 fetch(url).then(function (response) {
@@ -13,24 +20,31 @@ fetch(url).then(function (response) {
         response.json().then(function (elements) {
             console.log(elements)
             elements.forEach(element => {
-                ad = element.attributes.ADRESSE
-                name = element.attributes.NOM
-                long = element.geometry.x
-                lat = element.geometry.y
+                id = element.properties
+                ad = element.ad
+                name = element.name
+                long = element.x
+                lat = element.y
 
-                if (element.attributes.PLACES == null) {
+                if (element.places == null) {
                     nbplace = "inconnu"
                 } else {
-                    nbplace = element.attributes.PLACES
+                    nbplace = element.places
                 }
-                if (element.attributes.CAPACITE == null) {
+                if (element.capacities == null) {
                     cap = "inconnu"
                 } else {
-                    cap = element.attributes.CAPACITE
+                    cap = element.capacities
                 }
+                //if (element.propreties === "parking") {
+                //    L.marker([lat, long]).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+                //        .openPopup();
+                //}
+                //else if (element.properties === "bike") {
+                //    L.marker([lat, long], { icon: greenIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+                //        .openPopup();
+                //}
 
-                L.marker([lat, long]).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-                    .openPopup();
 
             });
 
