@@ -1,27 +1,22 @@
 <?php
 namespace App\Controller;
 
-use App\Service\ApiParseService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class AccueilController
 {
-  private $apiParseService;
+  private $insertData;
 
-  public function __construct(ApiParseService $apiParseService) {
-    $this->apiParseService = $apiParseService;
+  public function __construct(InsertApiDataController $insertData) {
+    $this->insertData = $insertData;
   }
-
 
   public function accueil(ServerRequestInterface $request, ResponseInterface $response, array $args): ResponseInterface
   {
-    $response->getBody()->write(file_get_contents('../src/html/index.html'));
+    $this->insertData->loadDatabase();
 
-    // $this->apiParseService->ApiParse();
-    require('../src/Controller/insertApiData.php');
+    $response->getBody()->write(file_get_contents('../src/html/index.html'));
     return $response;
   }
-
-   
 }

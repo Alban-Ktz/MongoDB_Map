@@ -11,7 +11,7 @@ class ApiParseService{
         return json_decode(file_get_contents($apiName));
     }
 
-    public function ApiParse()
+    public function ApiToGeoJson()
     {
         $geoJsonDatas = [];
 
@@ -37,7 +37,7 @@ class ApiParseService{
         //GeoJSON bike points
         $data = $this->GetData($this->apiUrlBike);
         foreach ($data->data->stations as $station) { 
-            $pis[] = [
+            $geoJsonDatas[] = [
                 'properties' => 'bike',
                 'name' => $station->name,
                 'address' => $station->address,
@@ -65,6 +65,6 @@ class ApiParseService{
         
         // var_dump($data);
 
-        return $this->apiUrlParking;
+        return $geoJsonDatas;
     }
 }
