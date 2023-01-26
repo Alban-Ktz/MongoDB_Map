@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Service\ApiParseService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use MongoDB\Client as MongoDBClient;
 
 class InsertApiDataController {
   private $apiParseService;
@@ -26,7 +27,7 @@ class InsertApiDataController {
     $pis[] = $this->apiParseService->ApiToGeoJson();
     
     //On crée une instance de MongoDB (Une connexion) et on selectionne la BDD 'tdmongo'
-    $db = (new MongoDB\Client('mongodb://mongodb'))->selectDatabase('tdmongo');
+    $db = (new MongoDBClient('mongodb://mongodb'))->selectDatabase('tdmongo');
     
     if (!$this->isCollectionExist('pis', $db)) {
       //Dans la BDD on crée une collection nommée 'pis' (Collection = table en MySQL)
