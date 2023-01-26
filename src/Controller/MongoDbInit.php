@@ -8,12 +8,12 @@
     {
 
     $array=Array (
+            "propreties"=>$item->properties,
             "name" => $item->name,
             "ad"=>$item->address,
-            "desc"=>$item->description,
             "x"=>$item->geometry->x,
             "y"=>$item->geometry->y,
-            "places"=>$item->places,
+            "places"=>$item->nbDispo,
             "capacities"=>$item->capacity,
         );
             $i++;

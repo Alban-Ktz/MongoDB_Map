@@ -23,14 +23,13 @@ class ApiParseService{
                 'properties' => 'parking',
                 'name' => $feature->attributes->NOM,
                 'address' => $feature->attributes->ADRESSE,
-                'description' => '',
                 'category' => [
                     'name' => 'parking',
                     'icon' => 'fa-square-parking',
                     'color' => 'blue'
                 ],
                 'geometry' => $feature->geometry,
-                'places' => $feature->attributes->PLACES,
+                'nbDispo' => $feature->attributes->PLACES,
                 'capacity' => $feature->attributes->CAPACITE
             ];
         }
@@ -66,33 +65,38 @@ class ApiParseService{
                 ],
                 'capacity' => $station->capacity,
                 'station_id' => $stationId,
-                'num_bikes_available' => $bikesAvailable,
-                'num_docks_available' => $docksAvailable,
+                'nbDispo' => $bikesAvailable,
+                //'num_docks_available' => $docksAvailable,
             ];
         }
 
-        //GeoJSON bus points
-        $data = $this->GetData($this->apiUrlBus);
-        foreach($data->features as $feature)
-        {
-            $geoJsonDatas[] = [
-                'properties' => [
-                    'bus',
-                    $feature->properties
-                ],
-                'category' => [
-                    'name' => 'bus',
-                    'icon' => 'fa-square-bus',
-                    'color' => 'purple'
-                ],
-                'geometry' => [
-                    "x"=>$feature->geometry->coordinates[0],
-                    "y"=>$feature->geometry->coordinates[1]
-                ],
-            ];
-        }
+       // //GeoJSON bus points
+       // $data = $this->GetData($this->apiUrlBus);
+       // foreach($data->features as $feature)
+       // {
+       //     $geoJsonDatas[] = [
+       //         'properties' => 'bus',
+       //         'code'=> $feature->properties->code,
+       //         'description'=>$feature->properties->description,
+       //         'id'=>$feature->properties->id,
+       //         'name'=>$feature->properties->name,
+       //         'acces_handicape'=>$feature->properties->wheelchair_boarding,
+       //         
+       //         'category' => [
+       //             'name' => 'bus',
+       //             'icon' => 'fa-square-bus',
+       //             'color' => 'purple'
+       //         ],
+       //         'geometry' => [
+       //             "x"=>$feature->geometry->coordinates[0],
+       //             "y"=>$feature->geometry->coordinates[1]
+       //         ],
+       //     ];
+       // }
+//
+
         
-        // var_dump($data);
+        //var_dump($geoJsonDatas);
 
         return $geoJsonDatas;
     }
