@@ -14,6 +14,7 @@ $app = AppFactory::create();
 
 
 $app->get('/', \App\Controller\AccueilController::class . ':accueil');
+$app->get('/api/getData', \App\Controller\ApiController::class . ':getData');
 
 
 

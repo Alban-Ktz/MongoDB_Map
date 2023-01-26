@@ -60,10 +60,9 @@ class ApiParseService{
                 ],
                 'geometry' => [
                     "type" => 'point',
-                    "coordinates" => [
-                        $station->lat,
-                        $station->lon
-                    ]
+                    "x" =>  $station->lat,
+                    "y"=>  $station->lon,
+                    
                 ],
                 'capacity' => $station->capacity,
                 'station_id' => $stationId,
@@ -86,7 +85,10 @@ class ApiParseService{
                     'icon' => 'fa-square-bus',
                     'color' => 'purple'
                 ],
-                'geometry' => $feature->geometry,
+                'geometry' => [
+                    "x"=>$feature->geometry->coordinates[0],
+                    "y"=>$feature->geometry->coordinates[1]
+                ],
             ];
         }
         
