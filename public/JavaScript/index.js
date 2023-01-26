@@ -5,10 +5,17 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, minZoom: 3,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-let greenIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+let veloIcon = new L.Icon({
+    iconUrl: '../img/bicyclette.png',
     iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+});
+
+let parkingIcon = new L.Icon({
+    iconUrl: '../img/parking.png',
+    iconSize: [15, 31],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
     shadowSize: [41, 41]
@@ -18,13 +25,15 @@ let greenIcon = new L.Icon({
 fetch(url).then(function (response) {
     if (response.ok) {
         response.json().then(function (elements) {
-            console.log(elements)
             elements.forEach(element => {
-                id = element.properties
+                console.log(element)
+                console.log(element.properties)
+
                 ad = element.ad
                 name = element.name
                 long = element.x
                 lat = element.y
+
 
                 if (element.places == null) {
                     nbplace = "inconnu"
@@ -36,16 +45,17 @@ fetch(url).then(function (response) {
                 } else {
                     cap = element.capacities
                 }
-                //if (element.propreties === "parking") {
-                //    L.marker([lat, long]).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-                //        .openPopup();
-                //}
-                //else if (element.properties === "bike") {
-                //    L.marker([lat, long], { icon: greenIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-                //        .openPopup();
-                //}
 
+                switch (element.properties) {
+                    case 'parking':
+                        L.marker([lat, long], { icon: parkingIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+                            .openPopup(); break;
+                    case 'bike':
+                        L.marker([lat, long], { icon: veloIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+                            .openPopup(); break;
+                    default: console.log('aucun point trouvé');
 
+                }
             });
 
 

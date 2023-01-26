@@ -8,7 +8,7 @@
     {
 
     $array=Array (
-            "propreties"=>$item->properties,
+            "properties"=>$item->properties,
             "name" => $item->name,
             "ad"=>$item->address,
             "x"=>$item->geometry->x,
