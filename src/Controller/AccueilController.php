@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
@@ -16,7 +17,13 @@ class AccueilController
   {
     $this->insertData->loadDatabase();
 
-    $response->getBody()->write(file_get_contents('../src/html/index.html'));
+    try {
+      $response->getBody()->write(file_get_contents('../src/html/index.html'));
+
+    } catch (Exception $e) {
+      echo "Erreur : " + $e->getMessage();
+    } 
+
     return $response;
   }
 }

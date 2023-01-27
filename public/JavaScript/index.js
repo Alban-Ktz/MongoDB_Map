@@ -25,41 +25,47 @@ let parkingIcon = new L.Icon({
 fetch(url).then(function (response) {
     if (response.ok) {
         response.json().then(function (elements) {
-            elements.forEach(element => {
-                console.log(element)
-                console.log(element.properties)
+            // elements.forEach(element => {
+            //     console.log(element)
+            //     console.log(element.properties)
 
-                ad = element.ad
-                name = element.name
-                long = element.x
-                lat = element.y
+            //     ad = element.ad
+            //     name = element.name
+            //     long = element.x
+            //     lat = element.y
 
 
-                if (element.places == null) {
-                    nbplace = "inconnu"
-                } else {
-                    nbplace = element.places
+            //     if (element.places == null) {
+            //         nbplace = "inconnu"
+            //     } else {
+            //         nbplace = element.places
+            //     }
+            //     if (element.capacities == null) {
+            //         cap = "inconnu"
+            //     } else {
+            //         cap = element.capacities
+            //     }
+
+            //     switch (element.properties) {
+            //         case 'parking':
+            //             L.marker([lat, long], { icon: parkingIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+            //                 .openPopup(); break;
+            //         case 'bike':
+            //             L.marker([lat, long], { icon: veloIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
+            //                 .openPopup(); break;
+            //         default: console.log('aucun point trouvé');
+            //     }
+            // });
+            
+            L.geoJSON(response, {
+                style: function (feature) {
+                    return {color: feature.properties.color};
                 }
-                if (element.capacities == null) {
-                    cap = "inconnu"
-                } else {
-                    cap = element.capacities
-                }
-
-                switch (element.properties) {
-                    case 'parking':
-                        L.marker([lat, long], { icon: parkingIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-                            .openPopup(); break;
-                    case 'bike':
-                        L.marker([lat, long], { icon: veloIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-                            .openPopup(); break;
-                    default: console.log('aucun point trouvé');
-
-                }
-            });
-
-
+            }).bindPopup((layer) => {
+                return layer.feature.properties.description;
+            }).addTo(map);
         });
+        
     } else {
         console.log('Mauvaise réponse du réseau');
     }

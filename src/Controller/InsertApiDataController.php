@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Service\ApiParseService;
+use Exception;
 use MongoDB\Client as MongoDBClient;
 
 class InsertApiDataController {
@@ -44,7 +45,11 @@ class InsertApiDataController {
 
     //Si  le tableau n'est pas vide on insert TOUTES les données dans la BDD avec insertMany. Pour inserer seulement un objet on utilise la méthode insertOne
     if (count($pis) > 0) {
-      $db->insertMany($pis);
+      try {
+        $db->insertMany($pis);
+      } catch (Exception $e) {
+        echo "Erreur d'insertion des données : " + $e->getMessage();
+      }
     }
   }
 }
