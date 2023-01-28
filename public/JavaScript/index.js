@@ -25,26 +25,6 @@ let parkingIcon = new L.Icon({
 fetch(url).then(function (response) {
     if (response.ok) {
         response.json().then(function (elements) {
-            // elements.forEach(element => {
-            //     console.log(element)
-            //     console.log(element.properties)
-
-            //     ad = element.ad
-            //     name = element.name
-            //     long = element.x
-            //     lat = element.y
-
-
-            //     if (element.places == null) {
-            //         nbplace = "inconnu"
-            //     } else {
-            //         nbplace = element.places
-            //     }
-            //     if (element.capacities == null) {
-            //         cap = "inconnu"
-            //     } else {
-            //         cap = element.capacities
-            //     }
 
             //     switch (element.properties) {
             //         case 'parking':
@@ -55,15 +35,15 @@ fetch(url).then(function (response) {
             //                 .openPopup(); break;
             //         default: console.log('aucun point trouvé');
             //     }
+                L.geoJSON(elements, {
+                    style: function (features) {
+                        return {color: features.properties.color};
+                    }
+                }).bindPopup((layer) => {
+                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
+                }).addTo(map);
             // });
             
-            L.geoJSON(response, {
-                style: function (feature) {
-                    return {color: feature.properties.color};
-                }
-            }).bindPopup((layer) => {
-                return layer.feature.properties.description;
-            }).addTo(map);
         });
         
     } else {

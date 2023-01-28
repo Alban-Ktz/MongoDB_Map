@@ -22,6 +22,13 @@ class ApiParseService
         $data = $this->GetData($this->apiUrlParking);
         foreach ($data->features as $feature) {
             $geoJsonDatas[] = [
+                'geometry' => [
+                    'coordinates' => [
+                        $feature->geometry->x,
+                        $feature->geometry->y
+                    ],
+                    'type' => 'Point'
+                ],
                 'properties' => [
                     'type' => 'parking',
                     'name' => $feature->attributes->NOM,
@@ -29,15 +36,12 @@ class ApiParseService
                     'nbDispo' => $feature->attributes->PLACES,
                     'capacity' => $feature->attributes->CAPACITE
                 ],
-                'geometry' => [
-                    $feature->geometry,
-                    'type' => 'Point'
-                ],
                 'category' => [
                     'name' => 'parking',
                     'icon' => 'fa-square-parking',
                     'color' => 'blue'
                 ],
+                'type' => 'Feature'
             ];
         }
 

@@ -1,0 +1,27 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    6.146292946040967,
+                    48.64907009599818
+                ],
+                "type": "Point"
+            },
+            "properties": {
+                "type": "parking",
+                "name": "Brabois",
+                "address": "Avenue de Bourgogne",
+                "nbDispo": null,
+                "capacity": 530
+            },
+            "category": {
+                "name": "parking",
+                "icon": "fa-square-parking",
+                "color": "blue"
+            },
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}
