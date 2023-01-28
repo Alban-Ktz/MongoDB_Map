@@ -5,6 +5,7 @@
 use App\Controller\AccueilController;
 use App\Controller\InsertApiDataController;
 use App\Service\ApiParseService;
+use App\Service\MongoGeojsonService;
 use UMA\DIC\Container;
 
 require_once __DIR__ . '/vendor/autoload.php';

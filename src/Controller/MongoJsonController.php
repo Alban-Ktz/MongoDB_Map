@@ -3,13 +3,11 @@ namespace App\Controller;
 
 use MongoDB\Client as MongoDBClient;
 
-class MongoDbInitController {
-
+class MongoJsonController {
     public function dbInit()
     {
         $db = (new MongoDBClient('mongodb://mongodb'))->selectDatabase('tdmongo');
         $items = $db->selectCollection('pis')->find([]);
-        $i = 0;
         $api = array();
 
         foreach ($items as $item)
@@ -19,8 +17,7 @@ class MongoDbInitController {
                 "geometry" => $item->geometry,
                 "category" => $item->category
             );
-                
-            $i++;
+
             array_push($api,$array);
         }
 
