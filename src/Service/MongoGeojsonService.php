@@ -10,21 +10,24 @@ class MongoGeojsonService {
         $db = (new MongoDBClient('mongodb://mongodb'))->selectDatabase('tdmongo');
         $items = $db->selectCollection('pis')->find([]);
 
-        $api = [];
+        $geoJson = [];
+        $geoJson["features"] = array();
 
         foreach ($items as $item)
         {
-            $api["features"] = array([
+            $data = array(
                 "geometry" => $item->geometry,
                 "properties" => $item->properties,
                 "category" => $item->category,
                 "type" => $item->type
-            ]);
+            );
+
+            array_push($geoJson["features"], $data);
         }
         
-        $api["type"] = "FeatureCollection";
+        $geoJson["type"] = "FeatureCollection";
 
-        $geoJsonApi = json_encode($api, JSON_PRETTY_PRINT);
+        $geoJsonApi = json_encode($geoJson, JSON_PRETTY_PRINT);
         file_put_contents("../src/JSON/data.geojson", $geoJsonApi);
     }
 }
