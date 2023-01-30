@@ -19,31 +19,26 @@ class ApiParseService
         $geoJsonDatas = [];
 
         //GeoJSON parking points
-        // $data = $this->GetData($this->apiUrlParking);
-        // foreach ($data->features as $feature) {
-        //     $geoJsonDatas[] = [
-        //         'geometry' => [
-        //             'coordinates' => [
-        //                 $feature->geometry->x,
-        //                 $feature->geometry->y
-        //             ],
-        //             'type' => 'Point'
-        //         ],
-        //         'properties' => [
-        //             'type' => 'parking',
-        //             'name' => $feature->attributes->NOM,
-        //             'address' => $feature->attributes->ADRESSE,
-        //             'nbDispo' => $feature->attributes->PLACES,
-        //             'capacity' => $feature->attributes->CAPACITE
-        //         ],
-        //         'category' => [
-        //             'name' => 'parking',
-        //             'icon' => 'fa-square-parking',
-        //             'color' => 'blue'
-        //         ],
-        //         'type' => 'Feature'
-        //     ];
-        // }
+        $data = $this->GetData($this->apiUrlParking);
+        foreach ($data->features as $feature) {
+            $geoJsonDatas[] = [
+                'geometry' => [
+                    'coordinates' => [
+                        $feature->geometry->x,
+                        $feature->geometry->y
+                    ],
+                    'type' => 'Point'
+                ],
+                'properties' => [
+                    'type' => 'parking',
+                    'name' => $feature->attributes->NOM,
+                    'address' => $feature->attributes->ADRESSE,
+                    'nbDispo' => $feature->attributes->PLACES,
+                    'capacity' => $feature->attributes->CAPACITE
+                ],
+                'type' => 'Feature'
+            ];
+        }
 
         // //GeoJSON bike points
         // $data = $this->GetData($this->apiUrlBike);
@@ -51,13 +46,13 @@ class ApiParseService
         // foreach ($data->data->stations as $station) {
         //     $stationId = $station->station_id;
 
-        //     //get bikes and docks available corresponding with stationId
-        //     foreach ($dataBikeStatus->data->stations as $bikeStatus) {
-        //         if ($bikeStatus->station_id == $stationId) {
-        //             $bikesAvailable = $bikeStatus->num_bikes_available;
-        //             $docksAvailable = $bikeStatus->num_docks_available;
-        //         }
-        //     }
+            //get bikes and docks available corresponding with stationId
+            // foreach ($dataBikeStatus->data->stations as $bikeStatus) {
+            //     if ($bikeStatus->station_id == $stationId) {
+            //         $bikesAvailable = $bikeStatus->num_bikes_available;
+            //         $docksAvailable = $bikeStatus->num_docks_available;
+            //     }
+            // }
 
         //     $geoJsonDatas[] = [
         //         'properties' => [
@@ -66,13 +61,8 @@ class ApiParseService
         //             'address' => $station->address,
         //             'capacity' => $station->capacity,
         //             'station_id' => $stationId,
-        //             'nbDispo' => $bikesAvailable,
-        //             'num_docks_available' => $docksAvailable
-        //         ],
-        //         'category' => [
-        //             'name' => 'bike',
-        //             'icon' => 'fa-square-bike',
-        //             'color' => 'red'
+        //             // 'nbDispo' => $bikesAvailable,
+        //             // 'num_docks_available' => $docksAvailable
         //         ],
         //         'geometry' => [
         //             "coordinates" => [
@@ -81,42 +71,33 @@ class ApiParseService
         //             ],
         //             "type" => 'Point'
         //         ],
+        //         'type' => 'Feature'
         //     ];
         // }
 
         // //GeoJSON bus points and bus lines
-        $data = $this->GetData($this->apiUrlBus);
-        foreach ($data->features as $feature) {
-            if ($feature->geometry->type == 'Point') {
-                $geoJsonDatas[] = [
-                    'properties' => [
-                        'tag' => "busPoint",
-                        $feature->properties
-                    ],
-                    'category' => [
-                        'name' => 'busPoint',
-                        'icon' => 'fa-square-bus',
-                        'color' => 'purple'
-                    ],
-                    'geometry' => $feature->geometry,
-                    'type' => $feature->type
-                ];
-            } else {
-                $geoJsonDatas[] = [
-                    'properties' => [
-                        'tag' => "busLine",
-                        $feature->properties
-                    ],
-                    'category' => [
-                        'name' => 'busLine',
-                        'icon' => 'fa-square-busLine',
-                        'color' => 'yellow'
-                    ],
-                    'geometry' => $feature->geometry,
-                    'type' => $feature->type
-                ];
-            }
-        }
+        // $data = $this->GetData($this->apiUrlBus);
+        // foreach ($data->features as $feature) {
+        //     if ($feature->geometry->type == 'Point') {
+        //         $geoJsonDatas[] = [
+        //             'properties' => [
+        //                 'tag' => "busPoint",
+        //                 $feature->properties
+        //             ],
+        //             'geometry' => $feature->geometry,
+        //             'type' => $feature->type
+        //         ];
+        //     } else {
+        //         $geoJsonDatas[] = [
+        //             'properties' => [
+        //                 'tag' => "busLine",
+        //                 $feature->properties
+        //             ],
+        //             'geometry' => $feature->geometry,
+        //             'type' => $feature->type
+        //         ];
+        //     }
+        // }
 
         return $geoJsonDatas;
     }

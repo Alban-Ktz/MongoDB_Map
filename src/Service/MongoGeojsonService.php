@@ -18,7 +18,6 @@ class MongoGeojsonService {
             $data = array(
                 "geometry" => $item->geometry,
                 "properties" => $item->properties,
-                "category" => $item->category,
                 "type" => $item->type
             );
 
@@ -27,7 +26,7 @@ class MongoGeojsonService {
         
         $geoJson["type"] = "FeatureCollection";
 
-        $geoJsonApi = json_encode($geoJson, JSON_PRETTY_PRINT);
+        $geoJsonApi = json_encode($geoJson, );
         file_put_contents("../src/JSON/data.geojson", $geoJsonApi);
     }
 }
