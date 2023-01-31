@@ -34,7 +34,8 @@ class ApiParseService
                     'name' => $feature->attributes->NOM,
                     'address' => $feature->attributes->ADRESSE,
                     'nbDispo' => $feature->attributes->PLACES,
-                    'capacity' => $feature->attributes->CAPACITE
+                    'capacity' => $feature->attributes->CAPACITE,
+                    'color' => 'blue'
                 ],
                 'type' => 'Feature'
             ];
@@ -62,7 +63,8 @@ class ApiParseService
                     'capacity' => $station->capacity,
                     'station_id' => $stationId,
                     'nbDispo' => $bikesAvailable,
-                    'num_docks_available' => $docksAvailable
+                    'num_docks_available' => $docksAvailable,
+                    'color' => 'red'
                 ],
                 'geometry' => [
                     "coordinates" => [
@@ -82,7 +84,8 @@ class ApiParseService
                 $geoJsonDatas[] = [
                     'properties' => [
                         'tag' => "busPoint",
-                        $feature->properties
+                        $feature->properties,
+                        'color' => 'yellow'
                     ],
                     'geometry' => $feature->geometry,
                     'type' => $feature->type
@@ -91,7 +94,8 @@ class ApiParseService
                 $geoJsonDatas[] = [
                     'properties' => [
                         'tag' => "busLine",
-                        $feature->properties
+                        $feature->properties,
+                        'color' => '#3388ff'
                     ],
                     'geometry' => $feature->geometry,
                     'type' => $feature->type
