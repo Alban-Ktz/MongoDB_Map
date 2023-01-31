@@ -5,56 +5,116 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, minZoom: 3,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
-let veloIcon = new L.Icon({
-    iconUrl: '../img/bicyclette.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
 
-let parkingIcon = new L.Icon({
-    iconUrl: '../img/parking.png',
-    iconSize: [15, 31],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
+let bus = document.getElementById("bus");
+let velo = document.getElementById("velo");
+let parking = document.getElementById("parking");
+let busLine = document.getElementById("busLine");
 
+// feature.properties.tag === "parking" || feature.properties.tag === "busPoint" || feature.properties.tag === "bike" || feature.geometry.type === "LineString"
 
-fetch(url).then(function (response) {
-    if (response.ok) {
-        response.json().then(function (elements) {
-
-            //     switch (element.properties) {
-            //         case 'parking':
-            //             L.marker([lat, long], { icon: parkingIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-            //                 .openPopup(); break;
-            //         case 'bike':
-            //             L.marker([lat, long], { icon: veloIcon }).addTo(map).bindPopup("ADRESSE : " + ad + "<br/>NOM : " + name + "<br/>Nombres de places : " + nbplace + "<br/>Capacité maximum : " + cap)
-            //                 .openPopup(); break;
-            //         default: console.log('aucun point trouvé');
-            //     }
-                L.geoJSON(elements, {
+let allData;
+parking.addEventListener('change', function () {
+    fetch(url).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (elements) {
+                allData = L.geoJSON(elements, {
+                    filter: function (feature) {
+                        if (parking.checked) {
+                            return feature.properties.tag === "parking"
+                        } else {
+                            map.removeLayer(allData);
+                        }
+                    },
                     style: function (features) {
                         return {color: features.properties.color};
                     }
                 }).bindPopup((layer) => {
                     return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
-                }).addTo(map);
-            // });
-            
-        });
-        
-    } else {
-        console.log('Mauvaise réponse du réseau');
-    }
-})
-    .catch(function (error) {
-        console.log('Il y a eu un problème avec l\'opération fetch : ' + error.message);
-    });
+                });
+                allData.addTo(map);
+            });
+        } else {
+            console.log('Mauvaise réponse du réseau');
+        }
+    })
+});
 
+velo.addEventListener('change', function () {
+    fetch(url).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (elements) {
+                allData = L.geoJSON(elements, {
+                    filter: function (feature) {
+                        if (velo.checked) {
+                            return feature.properties.tag === "bike"
+                        } else {
+                            map.removeLayer(allData);
+                        }
+                    },
+                    style: function (features) {
+                        return {color: features.properties.color};
+                    }
+                }).bindPopup((layer) => {
+                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
+                });
+                allData.addTo(map);
+            });
+        } else {
+            console.log('Mauvaise réponse du réseau');
+        }
+    })
+});
 
+bus.addEventListener('change', function () {
+    fetch(url).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (elements) {
+                allData = L.geoJSON(elements, {
+                    filter: function (feature) {
+                        if (bus.checked) {
+                            return feature.properties.tag === "busPoint"
+                        } else {
+                            map.removeLayer(allData);
+                        }
+                    },
+                    style: function (features) {
+                        return {color: features.properties.color};
+                    }
+                }).bindPopup((layer) => {
+                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
+                });
+                allData.addTo(map);
+            });
+        } else {
+            console.log('Mauvaise réponse du réseau');
+        }
+    })
+});
 
-
+busLine.addEventListener('change', function () {
+    fetch(url).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (elements) {
+                allData = L.geoJSON(elements, {
+                    filter: function (feature) {
+                        if (busLine.checked) {
+                            return feature.geometry.type === "LineString"
+                        } else {
+                            map.removeLayer(allData);
+                        }
+                    },
+                    style: function (features) {
+                        return {color: features.properties.color};
+                    }
+                }).bindPopup((layer) => {
+                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
+                });
+                allData.addTo(map);
+            });
+        } else {
+            console.log('Mauvaise réponse du réseau');
+        }
+    })
+});
 
