@@ -47,16 +47,20 @@ const fetchData = (url, filterTag) => {
 parking.addEventListener('change', () => {
   if (parking.checked) {
     fetchData(url, "parking");
+    console.log("parking")
   } else {
     map.removeLayer(allData);
+    console.log("no parking")
   }
 });
 
 velo.addEventListener('change', () => {
   if (velo.checked) {
     fetchData(url, "bike");
+    console.log("velo")
   } else {
     map.removeLayer(allData);
+    console.log("no velo")
   }
 });
 
@@ -76,3 +80,10 @@ busLine.addEventListener('change', () => {
   }
 });
 
+window.addEventListener('load', (event) => {
+    parking.checked = true;
+    fetchData(url, "parking");
+    bus.checked = false;
+    busLine.checked = false;
+    velo.checked = false;
+});
