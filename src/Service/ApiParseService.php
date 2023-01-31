@@ -84,7 +84,11 @@ class ApiParseService
                 $geoJsonDatas[] = [
                     'properties' => [
                         'tag' => "busPoint",
-                        $feature->properties,
+                        'code' => $feature->properties->code,
+                        'description' => $feature->properties->description,
+                        'id' => $feature->properties->id,
+                        'name' => $feature->properties->name,
+                        'wheelchair_boarding' => $feature->properties->wheelchair_boarding,
                         'color' => 'yellow'
                     ],
                     'geometry' => $feature->geometry,
@@ -94,8 +98,11 @@ class ApiParseService
                 $geoJsonDatas[] = [
                     'properties' => [
                         'tag' => "busLine",
-                        $feature->properties,
-                        'color' => '#3388ff'
+                        'route_color' => $feature->properties->route_color,
+                        'route_id' => $feature->properties->route_id,
+                        'route_long_name' => $feature->properties->route_long_name,
+                        'route_short_name' => $feature->properties->route_short_name,
+                        'route_text_color' => $feature->properties->route_text_color,
                     ],
                     'geometry' => $feature->geometry,
                     'type' => $feature->type
