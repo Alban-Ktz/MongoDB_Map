@@ -37,7 +37,7 @@ fetch(url).then(function (response) {
             //     }
                 L.geoJSON(elements, {
                     style: function (features) {
-                        return {color: features.properties.color};
+                        return {color: features.category.color};
                     }
                 }).bindPopup((layer) => {
                     return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
