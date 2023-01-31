@@ -39,36 +39,6 @@ const busPointIcon = new L.Icon({
     shadowSize: [41, 41],
 });
 
-/* EventListener */
-parking.addEventListener('change', () => {
-  if (parking.checked) {
-    fetchData("parking");
-  } else {
-    map.removeLayer(allData);
-  }
-});
-bike.addEventListener('change', () => {
-  if (bike.checked) {
-    fetchData("bike");
-  } else {
-    map.removeLayer(allData);
-  }
-});
-bus.addEventListener('change', () => {
-  if (bus.checked) {
-    fetchData("busPoint");
-  } else {
-    map.removeLayer(allData);
-  }
-});
-busLine.addEventListener('change', () => {
-  if (busLine.checked) {
-    fetchData("LineString");
-  } else {
-    map.removeLayer(allData);
-  }
-});
-
 const fetchData = (filterTag) => {
   fetch(url)
     .then(response => {
@@ -86,9 +56,6 @@ const fetchData = (filterTag) => {
           let busLineData = elements.features.filter(
             (feature) => feature.properties.tag === "busLine"
           );
-
-          console.log(parkingData);
-          console.log(filterTag);
 
           showMap(parkingData, filterTag);
           showMap(bikeData, filterTag);
@@ -162,7 +129,7 @@ const showMap = (elements, filterTag) => {
         break;
     }
 
-    L.geoJSON(element, {
+    allData = L.geoJSON(element, {
       filter: function(feature) {
         if(filterTag === "LineString") {
             return feature.geometry.type === filterTag;
@@ -183,10 +150,40 @@ const showMap = (elements, filterTag) => {
         }
       }
     })
-      .bindPopup(bindPopup)
-      .addTo(map);
+    .bindPopup(bindPopup)
+    allData.addTo(map);
   });
 }
+
+/* EventListener */
+parking.addEventListener('change', () => {
+  if (parking.checked) {
+    fetchData("parking");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+bike.addEventListener('change', () => {
+  if (bike.checked) {
+    fetchData("bike");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+bus.addEventListener('change', () => {
+  if (bus.checked) {
+    fetchData("busPoint");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+busLine.addEventListener('change', () => {
+  if (busLine.checked) {
+    fetchData("LineString");
+  } else {
+    map.removeLayer(allData);
+  }
+});
 
 window.addEventListener('load', () => {
   parking.checked = true;
