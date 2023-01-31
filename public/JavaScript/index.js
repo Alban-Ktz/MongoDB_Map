@@ -1,6 +1,12 @@
-let url = "http://localhost:8080/api/getData";
+const url = "http://localhost:8080/api/getData";
 let map = L.map("map").setView([48.691435, 6.177898], 13);
 let coordonne = [];
+let allData;
+
+const bus = document.getElementById("bus");
+const bike = document.getElementById("velo");
+const parking = document.getElementById("parking");
+const busLine = document.getElementById("busLine");
 
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
@@ -31,41 +37,74 @@ const busPointIcon = new L.Icon({
     iconAnchor: [5, 15],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
-  });
+});
 
-fetch(url)
-  .then(function (response) {
-    if (response.ok) {
-      response.json().then(function (elements) {
-        let parkingData = elements.features.filter(
-          (feature) => feature.properties.tag === "parking"
-        );
-        let bikeData = elements.features.filter(
-          (feature) => feature.properties.tag === "bike"
-        );
-        let busPointData = elements.features.filter(
-          (feature) => feature.properties.tag === "busPoint"
-        );
-        let busLineData = elements.features.filter(
-          (feature) => feature.properties.tag === "busLine"
-        );
+/* EventListener */
+parking.addEventListener('change', () => {
+  if (parking.checked) {
+    fetchData("parking");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+bike.addEventListener('change', () => {
+  if (bike.checked) {
+    fetchData("bike");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+bus.addEventListener('change', () => {
+  if (bus.checked) {
+    fetchData("busPoint");
+  } else {
+    map.removeLayer(allData);
+  }
+});
+busLine.addEventListener('change', () => {
+  if (busLine.checked) {
+    fetchData("LineString");
+  } else {
+    map.removeLayer(allData);
+  }
+});
 
-        showMap(parkingData);
-        showMap(bikeData);
-        showMap(busPointData);
-        showMap(busLineData);
-      });
-    } else {
-      console.log("Mauvaise réponse du réseau");
-    }
-  })
-  .catch(function (error) {
-    console.log(
-      "Il y a eu un problème avec l'opération fetch : " + error.message
-    );
-  });
+const fetchData = (filterTag) => {
+  fetch(url)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(elements => {
+          let parkingData = elements.features.filter(
+            (feature) => feature.properties.tag === "parking"
+          );
+          let bikeData = elements.features.filter(
+            (feature) => feature.properties.tag === "bike"
+          );
+          let busPointData = elements.features.filter(
+            (feature) => feature.properties.tag === "busPoint"
+          );
+          let busLineData = elements.features.filter(
+            (feature) => feature.properties.tag === "busLine"
+          );
 
-function showMap(elements) {
+          console.log(parkingData);
+          console.log(filterTag);
+
+          showMap(parkingData, filterTag);
+          showMap(bikeData, filterTag);
+          showMap(busPointData, filterTag);
+          showMap(busLineData, filterTag);
+        });
+      } else {
+        console.log('Mauvaise réponse du réseau.');
+      }
+    })
+    .catch(function (error) {
+      console.log('Il y a eu un problème avec l\'opération fetch : ' + error.message);
+    });
+}
+
+const showMap = (elements, filterTag) => {
   elements.forEach((element) => {
     let bindPopup;
     switch (element.properties.tag) {
@@ -124,6 +163,12 @@ function showMap(elements) {
     }
 
     L.geoJSON(element, {
+      filter: function(feature) {
+        if(filterTag === "LineString") {
+            return feature.geometry.type === filterTag;
+        }
+        return feature.properties.tag === filterTag;
+      },
       style: function (features) {
         return { color: features.properties.route_color };
       },
@@ -142,3 +187,11 @@ function showMap(elements) {
       .addTo(map);
   });
 }
+
+window.addEventListener('load', () => {
+  parking.checked = true;
+  fetchData("parking");
+  bus.checked = false;
+  busLine.checked = false;
+  velo.checked = false;
+});

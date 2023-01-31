@@ -12,13 +12,43 @@
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
     <style>
         #map {
-            height: 98.4vh;
+            height: 85vh;
+            width: 85vw;
+            border: 2px solid black;
+            margin: 0 auto;
+        }
+        .checkboxes {
+            width: 400px;
+            border-radius: 10px;
+            text-align: center;
+            padding:1px 0 15px 0;
+            margin: 0 auto 5px auto;
+
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 
 <body>
+    <h1>Ville de Nancy</h1>
+
+        <div class="checkboxes">
+            <h3>Filtres</h3>
+            <input type="checkbox" id="bus" name="bus">
+            <label for="bus">Bus</label>
+            <input type="checkbox" id="velo" name="velo">
+            <label for="velo">Vélo</label>
+            <input type="checkbox" id="parking" name="parking">
+            <label for="parking">Parking</label>
+            <input type="checkbox" id="busLine" name="busLine">
+            <label for="busLine">Ligne de bus</label>
+        </div>
+
     <div id="map"></div>
+
     <script src="../JavaScript/index.js"></script>
 </body>
 
