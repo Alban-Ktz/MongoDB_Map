@@ -12,7 +12,7 @@ L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 const parkingIcon = new L.Icon({
     iconUrl: "../img/parking.png",
     iconSize: [25, 25],
-    iconAnchor: [12, 41],
+    iconAnchor: [5, 15],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
 });
@@ -20,7 +20,7 @@ const parkingIcon = new L.Icon({
 const bikeIcon = new L.Icon({
   iconUrl: "../img/bicyclette.png",
   iconSize: [25, 25],
-  iconAnchor: [12, 41],
+  iconAnchor: [5, 15],
   popupAnchor: [1, -34],
   shadowSize: [41, 41],
 });
@@ -28,7 +28,7 @@ const bikeIcon = new L.Icon({
 const busPointIcon = new L.Icon({
     iconUrl: "../img/bus_stop.png",
     iconSize: [25, 25],
-    iconAnchor: [12, 41],
+    iconAnchor: [5, 15],
     popupAnchor: [1, -34],
     shadowSize: [41, 41],
   });
