@@ -186,8 +186,7 @@ busLine.addEventListener('change', () => {
 });
 
 window.addEventListener('load', () => {
-  parking.checked = true;
-  fetchData("parking");
+  parking.checked = false;
   bus.checked = false;
   busLine.checked = false;
   velo.checked = false;
