@@ -14,107 +14,62 @@ let busLine = document.getElementById("busLine");
 // feature.properties.tag === "parking" || feature.properties.tag === "busPoint" || feature.properties.tag === "bike" || feature.geometry.type === "LineString"
 
 let allData;
-parking.addEventListener('change', function () {
-    fetch(url).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (elements) {
-                allData = L.geoJSON(elements, {
-                    filter: function (feature) {
-                        if (parking.checked) {
-                            return feature.properties.tag === "parking"
-                        } else {
-                            map.removeLayer(allData);
-                        }
-                    },
-                    style: function (features) {
-                        return {color: features.properties.color};
-                    }
-                }).bindPopup((layer) => {
-                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
-                });
-                allData.addTo(map);
-            });
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
+const fetchData = (url, filterTag) => {
+  fetch(url)
+    .then(response => {
+      if (response.ok) {
+        response.json().then(elements => {
+          allData = L.geoJSON(elements, {
+            filter: function(feature) {
+                if(filterTag === "LineString") {
+                    return feature.geometry.type === filterTag;
+                }
+                return feature.properties.tag === filterTag;
+            },
+            style: feature => ({ color: feature.properties.color }),
+          }).bindPopup(layer => `
+            ADRESSE : ${layer.feature.properties.address}
+            NOM : ${layer.feature.properties.name}
+            Nombres de places : ${layer.feature.properties.nbDispo}
+            capacité maximum : ${layer.feature.properties.capacity}
+          `);
+          allData.addTo(map);
+        });
+      } else {
+        console.log('Mauvaise réponse du réseau.');
+      }
+    });
+};
+
+parking.addEventListener('change', () => {
+  if (parking.checked) {
+    fetchData(url, "parking");
+  } else {
+    map.removeLayer(allData);
+  }
 });
 
-velo.addEventListener('change', function () {
-    fetch(url).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (elements) {
-                allData = L.geoJSON(elements, {
-                    filter: function (feature) {
-                        if (velo.checked) {
-                            return feature.properties.tag === "bike"
-                        } else {
-                            map.removeLayer(allData);
-                        }
-                    },
-                    style: function (features) {
-                        return {color: features.properties.color};
-                    }
-                }).bindPopup((layer) => {
-                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
-                });
-                allData.addTo(map);
-            });
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
+velo.addEventListener('change', () => {
+  if (velo.checked) {
+    fetchData(url, "bike");
+  } else {
+    map.removeLayer(allData);
+  }
 });
 
-bus.addEventListener('change', function () {
-    fetch(url).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (elements) {
-                allData = L.geoJSON(elements, {
-                    filter: function (feature) {
-                        if (bus.checked) {
-                            return feature.properties.tag === "busPoint"
-                        } else {
-                            map.removeLayer(allData);
-                        }
-                    },
-                    style: function (features) {
-                        return {color: features.properties.color};
-                    }
-                }).bindPopup((layer) => {
-                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
-                });
-                allData.addTo(map);
-            });
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
+bus.addEventListener('change', () => {
+  if (bus.checked) {
+    fetchData(url, "busPoint");
+  } else {
+    map.removeLayer(allData);
+  }
 });
 
-busLine.addEventListener('change', function () {
-    fetch(url).then(function (response) {
-        if (response.ok) {
-            response.json().then(function (elements) {
-                allData = L.geoJSON(elements, {
-                    filter: function (feature) {
-                        if (busLine.checked) {
-                            return feature.geometry.type === "LineString"
-                        } else {
-                            map.removeLayer(allData);
-                        }
-                    },
-                    style: function (features) {
-                        return {color: features.properties.color};
-                    }
-                }).bindPopup((layer) => {
-                    return "ADRESSE : " + layer.feature.properties.address + "<br/>NOM : " + layer.feature.properties.name + "<br/>Nombres de places : " + layer.feature.properties.nbDispo + "<br/>capacité maximum : " + layer.feature.properties.capacity;
-                });
-                allData.addTo(map);
-            });
-        } else {
-            console.log('Mauvaise réponse du réseau');
-        }
-    })
+busLine.addEventListener('change', () => {
+  if (busLine.checked) {
+    fetchData(url, "LineString");
+  } else {
+    map.removeLayer(allData);
+  }
 });
 
