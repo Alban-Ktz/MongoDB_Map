@@ -1,4 +1,4 @@
-let url = "http://localhost:8080/api/getData";
+const url = "http://localhost:8080/api/getData";
 let map = L.map('map').setView([48.691435, 6.177898], 13);
 let coordonne = []
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -14,7 +14,7 @@ let busLine = document.getElementById("busLine");
 // feature.properties.tag === "parking" || feature.properties.tag === "busPoint" || feature.properties.tag === "bike" || feature.geometry.type === "LineString"
 
 let allData;
-const fetchData = (url, filterTag) => {
+const fetchData = (filterTag) => {
   fetch(url)
     .then(response => {
       if (response.ok) {
@@ -46,7 +46,7 @@ const fetchData = (url, filterTag) => {
 
 parking.addEventListener('change', () => {
   if (parking.checked) {
-    fetchData(url, "parking");
+    fetchData("parking");
     console.log("parking")
   } else {
     map.removeLayer(allData);
@@ -56,7 +56,7 @@ parking.addEventListener('change', () => {
 
 velo.addEventListener('change', () => {
   if (velo.checked) {
-    fetchData(url, "bike");
+    fetchData("bike");
     console.log("velo")
   } else {
     map.removeLayer(allData);
@@ -66,7 +66,7 @@ velo.addEventListener('change', () => {
 
 bus.addEventListener('change', () => {
   if (bus.checked) {
-    fetchData(url, "busPoint");
+    fetchData("busPoint");
   } else {
     map.removeLayer(allData);
   }
@@ -74,7 +74,7 @@ bus.addEventListener('change', () => {
 
 busLine.addEventListener('change', () => {
   if (busLine.checked) {
-    fetchData(url, "LineString");
+    fetchData("LineString");
   } else {
     map.removeLayer(allData);
   }
